@@ -1,0 +1,137 @@
+/* Estilos Gerais */
+
+body {
+    background-image: url('https://esr.rnp.br/wp-content/uploads/2023/09/TI-Verde-scaled-1.jpg');
+    background-size: cover; /* Faz a imagem cobrir toda a tela */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Impede que a imagem se repita */
+    height: 100vh; /* Garante que o fundo ocupe toda a altura da tela */
+    margin: 0; /* Remove margens padrão do body */
+    color: white; /* Muda a cor do texto para branco (ou outra cor que você preferir) */
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f4f7;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+header {
+    background-color: #28a745;
+    color: white;
+    padding: 20px;
+    font-size: 24px;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 14px;
+}
+
+main {
+    margin: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #1e7e34;
+    color: white;
+}
+
+#name-entry {
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+/* Estilo das Perguntas e Opções */
+.question-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.option-btn {
+    background-color: #f8f9fa;
+    margin: 10px 0;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.option-btn:hover {
+    background-color: #d4edda;
+    border-color: #28a745;
+}
+
+.option-btn.correct {
+    background-color: #28a745;
+    color: white;
+}
+
+.option-btn.wrong {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Estilo do Ranking */
+#ranking-container {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #28a745;
+    color: white;
+}
+
+table td {
+    background-color: #f8f9fa;
+}
+
+/* Botão Próxima */
+#next-btn {
+    background-color: #28a745;
+    color: white;
+    margin-top: 20px;
+    border-radius: 5px;
+    display: none;
+    padding: 10px 20px;
+}

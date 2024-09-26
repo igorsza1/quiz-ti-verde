@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz sobre TI Verde</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #environment-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .info-card {
+            background-color: #e0f7fa;
+            border: 1px solid #b2ebf2;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 8px;
+            width: 30%;
+            min-width: 250px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .info-card:hover {
+            transform: scale(1.05);
+        }
+        .info-card h2 {
+            color: #00695c;
+        }
+        .info-card p, .info-card ul {
+            font-size: 1.1em;
+            line-height: 1.5;
+        }
+        .info-card ul {
+            padding-left: 20px;
+        }
+        .info-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        #comments-section {
+            margin-top: 30px;
+            background-color: #fafafa;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        #comments-list {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f0f4c3;
+            border-radius: 5px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .comment {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #ffffff;
+        }
+        .wrong-option {
+            background-color: #ffcccc;
+        }
+        .correct-option {
+            background-color: #c8e6c9;
+        }
+        #qrcode {
+            margin-top: 20px;
+            text-align: center;
+        }
+        canvas {
+            border: 1px solid #ccc; /* Borda para destacar o QR Code */
+            margin-top: 10px; /* Espaço acima do canvas */
+        }
+        footer {
+            margin-top: 20px;
+            text-align: center; /* Centraliza o texto do rodapé */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Quiz sobre TI Verde</h1>
+        <p>Teste seus conhecimentos sobre tecnologia sustentável!</p>
+        <p>Desenvolvido por [Igor de Souza Vieira]</p>
+    </header>
+
+    <main>
+        <div id="name-entry">
+            <label for="name">Digite seu nome:</label>
+            <input type="text" id="name" placeholder="Seu nome">
+            <button onclick="startQuiz()">Começar Quiz</button>
+        </div>
+
+        <div id="quiz-container" style="display: none;">
+            <div class="question-container">
+                <h2 id="question">Pergunta aparecerá aqui</h2>
+                <div id="options"></div>
+                <div id="timer">Tempo restante: <span id="time-left">10</span>s</div>
+            </div>
+            <button id="next-btn" onclick="nextQuestion()" style="display: none;">Próxima</button>
+        </div>
+
+        <div id="ranking-container" style="display: none;">
+            <h2>Ranking dos Jogadores</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Pontuação</th>
+                    </tr>
+                </thead>
+                <tbody id="ranking-body"></tbody>
+            </table>
+            <button onclick="resetQuiz()">Tentar novamente</button>
+        </div>
+
+        <section id="environment-info">
+            <div class="info-card">
+                <h2>O que é TI Verde?</h2>
+                <p>TI Verde refere-se ao uso eficiente de recursos computacionais, energia e infraestrutura para minimizar o impacto ambiental. Isso envolve a adoção de práticas e tecnologias que reduzem o consumo de energia, prolongam a vida útil do hardware e diminuem a geração de resíduos eletrônicos.</p>
+                <img src="https://www.opservices.com.br/wp-content/uploads/2015/06/TI-Verde.png" alt="TI Verde">
+            </div>
+            <div class="info-card">
+                <h2>Práticas de TI Verde</h2>
+                <ul>
+                    <li>Eficiência Energética: Data centers sustentáveis, computação em nuvem e virtualização.</li>
+                    <li>Descarte Correto de Equipamentos Eletrônicos: Reciclagem e parcerias com empresas especializadas.</li>
+                    <li>Uso de Hardware Eficiente: Dispositivos com certificação Energy Star e de baixo consumo.</li>
+                    <li>Desligamento e Economia de Energia: Usar modos de economia de energia e desligar dispositivos ociosos.</li>
+                </ul>
+                <img src="https://www.officetotal.com.br/wp-content/uploads/2022/03/ti-verde-exemplos.jpg" alt="Práticas de TI Verde">
+            </div>
+            <div class="info-card">
+                <h2>Benefícios do TI Verde</h2>
+                <ul>
+                    <li>Redução de Custos: Economia de energia reduz custos operacionais.</li>
+                    <li>Redução de Emissões de Carbono: Menor impacto ambiental.</li>
+                    <li>Responsabilidade Corporativa: Melhoria da imagem sustentável.</li>
+                </ul>
+                <img src="https://www.terradecultivo.com.br/tcsolucoesambientais/wp-content/uploads/2021/08/Tecnologia-verde-1200x675.jpg" alt="Benefícios do TI Verde">
+            </div>
+            <div class="info-card">
+                <h2>Futuro da TI Verde</h2>
+                <ul>
+                    <li>Energia Renovável: Uso de fontes limpas.</li>
+                    <li>Economia Circular: Reutilização de componentes.</li>
+                    <li>Blockchain Verde: Soluções sustentáveis para tecnologia emergente.</li>
+                </ul>
+                <img src="https://esr.rnp.br/wp-content/uploads/2023/09/TI-Verde-scaled-1.jpg" alt="Futuro da TI Verde">
+            </div>
+        </section>
+
+        <section id="comments-section">
+            <h2>Comentários</h2>
+            <form id="comment-form" onsubmit="addComment(event)">
+                <label for="comment-name">Seu nome:</label>
+                <input type="text" id="comment-name" placeholder="Seu nome" required>
+                <label for="comment-text">Seu comentário:</label>
+                <textarea id="comment-text" placeholder="Escreva seu comentário aqui" required></textarea>
+                <button type="submit">Enviar Comentário</button>
+            </form>
+            <div id="comments-list"></div>
+        </section>
+
+        <div id="qrcode">
+            <h2>QR Code para Acessar o Quiz</h2>
+            <canvas id="qr-canvas" width="200" height="200"></canvas> <!-- Definindo a largura e altura do canvas -->
+        </div>
+    </main>
+
+    <!-- Adicionando os arquivos de som -->
+    <audio id="correct-sound" src="correct.mp3"></audio>
+    <audio id="wrong-sound" src="wrong.mp3"></audio>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script>
+        // Função para gerar QR Code
+        function generateQRCode() {
+            var qr = new QRious({
+                element: document.getElementById('qr-canvas'),
+                value: 'https://igorsza1.github.io/quiz-ti-verde/', // Substitua pelo seu URL
+                size: 200 // Tamanho do QR Code
+            });
+        }
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        const questions = [
+            {
+                question: "O que é TI Verde?",
+                options: ["Tecnologia sem impacto ambiental", "Tecnologia sustentável", "Tecnologia de baixo custo", "Tecnologia de alta velocidade"],
+                answer: 1
+            },
+            {
+                question: "Qual é um benefício da TI Verde?",
+                options: ["Aumento de custos", "Redução de emissões de carbono", "Mais lixo eletrônico", "Menos eficiência"],
+                answer: 1
+            },
+            {
+                question: "Quais são algumas práticas de TI Verde?",
+                options: ["Reciclar equipamentos eletrônicos", "Usar papel em excesso", "Aumentar o consumo de energia", "Desligar equipamentos não utilizados"],
+                answer: 0
+            }
+        ];
+
+        function startQuiz() {
+            document.getElementById("name-entry").style.display = "none";
+            document.getElementById("quiz-container").style.display = "block";
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const questionElement = document.getElementById("question");
+            const optionsElement = document.getElementById("options");
+            const timerElement = document.getElementById("time-left");
+            const nextButton = document.getElementById("next-btn");
+            
+            const currentQuestion = questions[currentQuestionIndex];
+            questionElement.innerText = currentQuestion.question;
+
+            optionsElement.innerHTML = ""; // Limpa opções anteriores
+
+            currentQuestion.options.forEach((option, index) => {
+                const button = document.createElement("button");
+                button.innerText = option;
+                button.onclick = () => selectOption(index);
+                optionsElement.appendChild(button);
+            });
+
+            let timeLeft = 10;
+            timerElement.innerText = timeLeft;
+            const timer = setInterval(() => {
+                timeLeft--;
+                timerElement.innerText = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    nextButton.style.display = "block"; // Mostra o botão "Próxima" quando o tempo acaba
+                }
+            }, 1000);
+        }
+
+        function selectOption(selectedIndex) {
+            const currentQuestion = questions[currentQuestionIndex];
+            if (selectedIndex === currentQuestion.answer) {
+                score++;
+                document.getElementById("correct-sound").play(); // Toca som de acerto
+            } else {
+                document.getElementById("wrong-sound").play(); // Toca som de erro
+            }
+
+            const options = document.getElementById("options").children;
+            for (let i = 0; i < options.length; i++) {
+                if (i === currentQuestion.answer) {
+                    options[i].classList.add("correct-option");
+                } else {
+                    options[i].classList.add("wrong-option");
+                }
+            }
+
+            document.getElementById("next-btn").style.display = "block"; // Mostra o botão "Próxima"
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                showRanking();
+            }
+            document.getElementById("next-btn").style.display = "none"; // Esconde o botão "Próxima"
+        }
+
+        function showRanking() {
+            document.getElementById("quiz-container").style.display = "none";
+            document.getElementById("ranking-container").style.display = "block";
+            const rankingBody = document.getElementById("ranking-body");
+            const row = document.createElement("tr");
+            row.innerHTML = `<td>${document.getElementById("name").value}</td><td>${score}</td>`;
+            rankingBody.appendChild(row);
+        }
+
+        function resetQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            document.getElementById("ranking-container").style.display = "none";
+            document.getElementById("name-entry").style.display = "block";
+        }
+
+        // Função para adicionar comentários
+        function addComment(event) {
+            event.preventDefault();
+            const name = document.getElementById("comment-name").value;
+            const comment = document.getElementById("comment-text").value;
+            
+            // Criação do elemento de comentário
+            const commentDiv = document.createElement("div");
+            commentDiv.classList.add("comment");
+            commentDiv.innerHTML = `<strong>${name}</strong>: ${comment}`;
+            
+            // Adicionando o comentário à lista
+            document.getElementById("comments-list").appendChild(commentDiv);
+            
+            // Armazenando o comentário no Local Storage
+            saveComment(name, comment);
+            
+            // Resetando o formulário
+            document.getElementById("comment-form").reset();
+        }
+
+        function saveComment(name, comment) {
+            let comments = JSON.parse(localStorage.getItem("comments")) || [];
+            comments.push({ name, comment });
+            localStorage.setItem("comments", JSON.stringify(comments));
+        }
+
+        function loadComments() {
+            let comments = JSON.parse(localStorage.getItem("comments")) || [];
+            comments.forEach(c => {
+                const commentDiv = document.createElement("div");
+                commentDiv.classList.add("comment");
+                commentDiv.innerHTML = `<strong>${c.name}</strong>: ${c.comment}`;
+                document.getElementById("comments-list").appendChild(commentDiv);
+            });
+        }
+
+        window.onload = function() {
+            generateQRCode();
+            loadComments(); // Carregar comentários existentes
+        };
+    </script>
+</body>
+</html>
